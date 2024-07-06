@@ -1,0 +1,29 @@
+<html>
+<head>
+    <title>User Profile</title>
+</head>
+<body>
+    <h1>User Profile</h1>
+    <form method="get" action="/api/get_user_profile/">
+        <label for="name">Username:</label>
+        <input type="text" id="name" name="name"><br><br>
+        <label for="password">Password:</label>
+        <input type="password" id="password" name="password"><br><br>
+        <input type="submit" value="Get Profile">
+    </form>
+    <div id="result"></div>
+
+    <script>
+        document.querySelector('form').onsubmit = async function(e) {
+            e.preventDefault();
+            const name = document.getElementById('name').value;
+            const password = document.getElementById('password').value;
+
+            const response = await fetch(`/api/get_user_profile/?name=${name}&password=${password}`);
+            const data = await response.json();
+
+            document.getElementById('result').innerText = JSON.stringify(data, null, 2);
+        };
+    </script>
+</body>
+</html>
